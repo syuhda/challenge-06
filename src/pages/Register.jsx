@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import "../styles/register.css";
 import { Navbar, Container, FloatingLabel, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
 import GoogleLogin from "../components/GoogleLogin";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { register } from "../redux/actions/authActions";
 
 function Register() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,35 +22,13 @@ function Register() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      let data = JSON.stringify({
-        name,
-        email,
-        password,
-      });
+    let data = JSON.stringify({
+      name,
+      email,
+      password,
+    });
 
-      let config = {
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}/v1/auth/register`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-
-      const response = await axios.request(config);
-      const { token } = response.data.data;
-
-      localStorage.setItem("token", token);
-
-      window.location.href = "/";
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        toast.error(error.response.data.message);
-        return;
-      }
-      toast.error(error.message);
-    }
+    dispatch(register(data, navigate));
   };
 
   return (

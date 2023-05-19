@@ -1,33 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getSearchResults } from "../redux/actions/postActions";
 
-function SearchThree() {
+function Search() {
+  const dispatch = useDispatch();
+
+  const { movies } = useSelector((state) => state.post);
+
   const location = useLocation();
   const { query } = location.state;
-  const [search, setSearch] = useState("");
-  const [movies, setMovies] = useState({});
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=dca3f16902da77f476fae29bef18cfb2&query=${query}&include_adult=false`
-      )
-      .then((response) => setMovies(response.data.results))
-      .catch((error) => console.log(error));
-    setSearch(query);
-  }, [query]);
+    dispatch(getSearchResults(query));
+  }, [dispatch, query]);
 
   const InputValue = () => {
-    if (search !== "") {
+    if (query !== "") {
       return (
         <h3 style={{ marginTop: "6rem", color: "#DADADA" }}>
-          <b>Search Result "{search}"</b>
+          <b>Search Result "{query}"</b>
         </h3>
       );
     }
-    return search;
+    return query;
   };
 
   return (
@@ -63,11 +60,6 @@ function SearchThree() {
                       <Card.Title className="card-title text-center text-white">
                         <b>{movie.title}</b>
                       </Card.Title>
-                      {/* <p className="card-text">{movie.release_date}</p>
-                  <p className="card-text">{movie.overview}</p> */}
-                      {/* <Button variant="danger" className="ms-2" style={{ borderRadius: "20px", width: "120px" }}>
-                    See Details
-                  </Button> */}
                     </Card.Body>
                   </Card>
                 </Link>
@@ -84,4 +76,4 @@ function SearchThree() {
   );
 }
 
-export default SearchThree;
+export default Search;

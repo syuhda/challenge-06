@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import "../styles/login.css";
 import { Form, Container, Row, Col, Navbar } from "react-bootstrap";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import GoogleLogin from "../components/GoogleLogin";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../redux/actions/authActions";
+
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -16,34 +21,12 @@ function Login() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      let data = JSON.stringify({
-        email,
-        password,
-      });
+    let data = JSON.stringify({
+      email,
+      password,
+    });
 
-      let config = {
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}/v1/auth/login`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-
-      const response = await axios.request(config);
-      const { token } = response.data.data;
-
-      localStorage.setItem("token", token);
-
-      window.location.href = "/";
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        toast.error(error.response.data.message);
-        return;
-      }
-      toast.error(error.message);
-    }
+    dispatch(login(data, navigate));
   };
 
   return (
