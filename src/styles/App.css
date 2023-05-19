@@ -1,0 +1,44 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.bg {
+  background-color: #222222;
+}
+
+.card {
+  background-color: #414040;
+}
+
+.text-popular {
+  font-size: 35px;
+}
+
+.all-movie {
+  font-size: 18px;
+}
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 5px 15px;
+}
+
+.card:hover {
+  border: 2px solid;
+  outline-style: solid;
+  outline-color: #d9534f;
+}
+
+.card:focus {
+  outline: none !important;
+}
+
+.card-title {
+  font-size: 25px;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #222222;
+}
