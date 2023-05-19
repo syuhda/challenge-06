@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   token: localStorage.getItem("token") || null,
-  isLoggedIn: !!localStorage.getItem("token"), // !! = boolean/true atau false
+  isLoggedIn: !!localStorage.getItem("token"), // !! = boolean (true atau false)
   user: null,
 };
 

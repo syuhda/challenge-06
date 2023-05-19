@@ -10,7 +10,7 @@ function PopularMovie() {
   const dispatch = useDispatch();
 
   // Access the store => buat ngakses
-  const { posts } = useSelector((state) => state.post);
+  const { popularMovies } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getPopularMovies());
@@ -38,7 +38,7 @@ function PopularMovie() {
           </Col>
         </Row>
         <Row className="mt-4">
-          {posts.map((movie) => (
+          {popularMovies.map((movie) => (
             <Col sm={12} md={6} lg={3} key={movie.id}>
               <Link
                 to={`/details/${movie.id}`}

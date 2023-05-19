@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Initial state
 const initialState = {
-  posts: [],
+  nowPlayingMovies: [],
+  popularMovies: [],
   allMovies: [],
   movieDetails: {},
   genre: [],
@@ -16,10 +17,10 @@ const postSlicer = createSlice({
   initialState,
   reducers: {
     setNowPlayingMovies: (state, action) => {
-      state.posts = action.payload;
+      state.nowPlayingMovies = action.payload;
     },
     setPopularMovies: (state, action) => {
-      state.posts = action.payload;
+      state.popularMovies = action.payload;
     },
     setAllMovies: (state, action) => {
       state.allMovies = action.payload;
@@ -33,7 +34,7 @@ const postSlicer = createSlice({
     setBackdropPath: (state, action) => {
       state.backdropPath = action.payload;
     },
-    setSearchResult: (state, action) => {
+    setSearchResults: (state, action) => {
       state.searchResults = action.payload;
     },
   },

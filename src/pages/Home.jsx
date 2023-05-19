@@ -13,9 +13,7 @@ function Home() {
   const dispatch = useDispatch();
 
   // Access the store => buat ngakses
-  const { posts } = useSelector((state) => state.post);
-
-  // const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
+  const { nowPlayingMovies } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getNowPlayingMovies());
@@ -25,35 +23,36 @@ function Home() {
     <>
       <div className="bg">
         <Carousel controls={false}>
-          {posts.slice(4, 7).map((movie) => (
-            <Carousel.Item key={movie.id} style={{ maxHeight: "700px" }}>
-              <img
-                className="d-block w-100"
-                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                alt={movie.title}
-              />
-              <Carousel.Caption
-                className="text-start"
-                style={{
-                  left: "30%",
-                  transform: "translateX(-50%)",
-                  bottom: "20%",
-                }}
-              >
-                <h1 className="display-4" style={{ fontWeight: "bold" }}>
-                  {movie.title}
-                </h1>
-                <p>{movie.overview}</p>
-                <Button
-                  variant="danger"
-                  className="ms-2"
-                  style={{ borderRadius: "20px", width: "200px" }}
+          {nowPlayingMovies.length > 0 &&
+            nowPlayingMovies.slice(4, 7).map((movie) => (
+              <Carousel.Item key={movie.id} style={{ maxHeight: "700px" }}>
+                <img
+                  className="d-block w-100"
+                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <Carousel.Caption
+                  className="text-start"
+                  style={{
+                    left: "30%",
+                    transform: "translateX(-50%)",
+                    bottom: "20%",
+                  }}
                 >
-                  <i class="fas fa-clock" /> Watch Trailer
-                </Button>
-              </Carousel.Caption>
-            </Carousel.Item>
-          ))}
+                  <h1 className="display-4" style={{ fontWeight: "bold" }}>
+                    {movie.title}
+                  </h1>
+                  <p>{movie.overview}</p>
+                  <Button
+                    variant="danger"
+                    className="ms-2"
+                    style={{ borderRadius: "20px", width: "200px" }}
+                  >
+                    <i class="fas fa-clock" /> Watch Trailer
+                  </Button>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
         </Carousel>
         <PopularMovie />
       </div>

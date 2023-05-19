@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { Container, Row, Col, Form, Navbar, InputGroup } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { getMe, logout } from "../redux/actions/authActions";
 
 function NavScroll() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const onSearch = (e) => {
     e.preventDefault();
@@ -14,15 +19,9 @@ function NavScroll() {
     navigate("/search", { state: { query } });
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+    dispatch(getMe(null, null, null));
+  }, [dispatch]);
 
   return (
     <Navbar
@@ -88,9 +87,7 @@ function NavScroll() {
                     style={{ borderRadius: "20px", width: "100px" }}
                     as={Link}
                     onClick={() => {
-                      localStorage.removeItem("token");
-                      setIsLoggedIn(false);
-                      return navigate("/");
+                      dispatch(logout(navigate)); // dalam kurung diberi navigate agar langsung ngeredirect ke halaman home
                     }}
                   >
                     Logout

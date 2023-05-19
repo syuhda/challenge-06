@@ -6,8 +6,7 @@ import { getSearchResults } from "../redux/actions/postActions";
 
 function Search() {
   const dispatch = useDispatch();
-
-  const { movies } = useSelector((state) => state.post);
+  const { searchResults } = useSelector((state) => state.post);
 
   const location = useLocation();
   const { query } = location.state;
@@ -32,8 +31,8 @@ function Search() {
       <Container>
         <Row>
           {<InputValue />}
-          {movies.length > 0 ? (
-            movies.map((movie) => (
+          {searchResults.length > 0 ? (
+            searchResults.map((movie) => (
               <Col sm={12} md={6} lg={3} key={movie.id}>
                 <Link
                   to={`/details/${movie.id}`}

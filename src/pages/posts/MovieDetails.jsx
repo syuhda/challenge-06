@@ -23,6 +23,10 @@ function MovieDetails() {
     dispatch(getMovieDetails(id));
   }, [dispatch, id]);
 
+  useEffect(() => {
+    dispatch(getMe(navigate, null, null));
+  }, [dispatch, navigate]);
+
   const myStyle = {
     backgroundImage: `url(${backdropPath})`,
     height: "100vh",
@@ -32,10 +36,6 @@ function MovieDetails() {
     backgroundRepeat: "no-repeat",
   };
 
-  useEffect(() => {
-    dispatch(getMe(navigate, null, null));
-  }, [dispatch, navigate]);
-
   return (
     <>
       <Navbar />
@@ -43,8 +43,8 @@ function MovieDetails() {
       <div className="detailsPage" style={myStyle}>
         <div className="banner">
           <div className="details">
-            <h1 className="movieTitle">{movieDetails.title}</h1>
-            <p className="movieDescription">{movieDetails.overview}</p>
+            <h1 className="movieTitle">{movieDetails?.title}</h1>
+            <p className="movieDescription">{movieDetails?.overview}</p>
 
             <div style={{ marginBottom: "30px" }}></div>
             <hr style={{ opacity: "0.1" }}></hr>

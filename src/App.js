@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -9,10 +8,10 @@ import "../src/styles/App.css";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import NoNavbar from "./components/NoNavbar";
-import { ToastContainer } from "react-toastify";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import NoTokenAccess from "./components/NoTokenAccess";
 import Protected from "./components/Protected";
+import { ToastContainer } from "react-toastify";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import MovieDetails from "./pages/posts/MovieDetails";

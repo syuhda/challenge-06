@@ -26,7 +26,6 @@ export const registerLoginWithGoogle =
       dispatch(setToken(token));
       dispatch(setIsLoggedIn(true));
       dispatch(getMe(null, null, null));
-      //   localStorage.setItem("token", token); // in authReducer
 
       // We will use navigate from react-router-dom by passing the argument because the useNavigate() can only used in component
       navigate("/");
@@ -55,7 +54,7 @@ export const logout = (navigate) => (dispatch) => {
 export const getMe =
   (navigate, navigatePath, navigatePathError) => async (dispatch, getState) => {
     try {
-      const { token } = getState().auth; // getState cuma bisa dipake di action, selain itu harus pake useSlector
+      const { token } = getState().auth; // getState cuma bisa dipake di action, selain itu harus pake useSelector
 
       // console.log(token);
 
